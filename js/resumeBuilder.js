@@ -76,3 +76,13 @@ var education = {
     ]
 };
 
+var projects= {
+    "projects":[
+        {
+            "title":"windows10",
+            "dates":"2014",
+            "description":"the new os",
+            "images":["images/win10.jpg"]
+        }
+    ]
+};
