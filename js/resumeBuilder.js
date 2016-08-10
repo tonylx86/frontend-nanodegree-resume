@@ -29,7 +29,7 @@ var work = {
         {
             "employer":"Microsoft",
             "title":"software engineer",
-            "location":"London, UK",
+            "location":"Seattle, WA",
             "dates":"2001-2010",
             "description":"develop Windows 7"
         },
@@ -48,14 +48,16 @@ var education = {
         {
             "name":"MIT",
             "location":"Cambridge, MA",
-            "degree dates":"2004-2008",
+            "dates":"2004-2008",
+            "degree":"bachelor",
             "url":"www.mit.edu",
             "majors":["CS"]
         },
         {
             "name":"UCLA",
-            "location":"LA",
-            "degree dates":"2008-2011",
+            "location":"Los Angeles, CA",
+            "dates":"2008-2011",
+            "degree":"master",
             "url":"www.ucla.edu",
             "majors":["cs","design"]
         }
@@ -82,7 +84,109 @@ var projects= {
             "title":"windows10",
             "dates":"2014",
             "description":"the new os",
-            "images":["images/win10.jpg"]
+            "images":[]
+        },
+        {
+            "title":"React.js",
+            "dates":"2015",
+            "description":"the new front-end frame work",
+            "images":[]
         }
+
     ]
 };
+
+var header = $("#header");
+
+
+header.prepend(HTMLheaderRole.replace("%data%", bio.role));
+header.prepend(HTMLheaderName.replace("%data%", bio.name));
+
+
+var contact = $("#topContacts");
+
+header.append(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
+header.append(HTMLbioPic.replace("%data%", bio.biopic));
+if (bio.skills.length > 0) {
+
+    header.append(HTMLskillsStart);
+    var s = $("#skills:last");
+    s.css("flex-direction","row");
+    bio.skills.forEach(function (skill){
+
+
+        s.append(HTMLskills.replace("%data%", skill));
+    });
+    // document.getElementById("skills").style.flexDirection = "row";
+}
+
+
+for (var i in bio.contacts) {
+    contact.append(HTMLcontactGeneric
+        .replace("%data%", bio.contacts[i])
+        .replace("%contact%",i));
+}
+
+
+
+var workExp = $("#workExperience");
+
+for (i in work.jobs) {
+    workExp.append(HTMLworkStart);
+    var job = work.jobs[i];
+    $(".work-entry:last")
+        .append(HTMLworkEmployer.replace("%data%", job.employer
+            +HTMLworkTitle.replace("%data%", job.title)))
+        .append(HTMLworkDates.replace("%data%",job.dates))
+        .append(HTMLworkLocation.replace("%data%", job.location))
+        .append(HTMLworkDescription.replace("%data%",job.description));
+}
+
+$("#main:last").append(internationalizeButton);
+function nameChanger(oldName) {
+    var finalName = oldName.toUpperCase();
+    // Your code goes here!
+    var t = finalName.trim().split(" ");
+    finalName = t[0][0]+t[0].slice(1).toLowerCase() + " " + t[1]
+
+    // Don't delete this line!
+    return finalName;
+}
+function inName() {
+   bio.name = nameChanger(bio.name);
+}
+
+projects.display = function () {
+    this.projects.forEach(function (proj) {
+        $("#projects").append(HTMLprojectStart);
+        $(".project-entry:last")
+            .append(HTMLprojectTitle.replace("%data%", proj.title))
+            .append(HTMLprojectDates.replace("%data%", proj.dates))
+            .append(HTMLprojectDescription.replace("%data%", proj.description));
+
+        proj.images.forEach(function (img) {
+            $(".project-entry:last").append(HTMLprojectImage.replace("%data%", img))
+        })
+    })
+};
+
+education.display = function () {
+    this.schools.forEach(function (school) {
+        $("#education").append(HTMLschoolStart);
+        $(".education-entry:last")
+            .append(HTMLschoolName.replace("%data%", school.name)
+                +HTMLschoolDegree.replace("%data%", school.degree))
+            .append(HTMLschoolDates.replace("%data%", school.dates))
+            .append(HTMLschoolLocation.replace("%data%", school.location));
+        school.majors.forEach(function (major) {
+            $(".education-entry:last").append(HTMLschoolMajor.replace("%data%", major))
+        })
+    });
+};
+
+
+
+
+projects.display();
+education.display();
+$("#mapDiv").append(googleMap);

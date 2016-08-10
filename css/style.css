@@ -219,3 +219,8 @@ span {
     display: block;
   }
 }
+
+
+.flex-item {
+  margin-left: 50px;
+}
