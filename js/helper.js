@@ -178,6 +178,7 @@ function initializeMap() {
     // hmmmm, I wonder what this is about...
     google.maps.event.addListener(marker, 'click', function() {
       // your code goes here!
+      infoWindow.open(map, marker);
     });
 
     // this is where the pin actually gets added to the map.
@@ -247,3 +248,10 @@ window.addEventListener('resize', function(e) {
   //Make sure the map bounds get updated on page resize
  map.fitBounds(mapBounds);
 });
+
+function inName(name) {
+  ls = name.trim().split(" ");
+  var first = ls[0][0].toUpperCase() + ls[0].toLowerCase().slice(1);
+  var last = ls[1].toUpperCase();
+  return first+" "+last;
+}

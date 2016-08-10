@@ -152,9 +152,7 @@ function nameChanger(oldName) {
     // Don't delete this line!
     return finalName;
 }
-function inName() {
-   bio.name = nameChanger(bio.name);
-}
+
 
 projects.display = function () {
     this.projects.forEach(function (proj) {
@@ -190,3 +188,4 @@ education.display = function () {
 projects.display();
 education.display();
 $("#mapDiv").append(googleMap);
+
